@@ -1,0 +1,14 @@
+langchain
+langchain-google-genai
+langchain-openai
+langchain-community
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+pymupdf
+pypdf
+faiss-cpu
+chromadb
+Flask
