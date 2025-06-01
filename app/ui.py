@@ -1,19 +1,23 @@
-from flask import Flask, request, jsonify
+import streamlit as st
+import requests
 
-app = Flask(__name__)
+st.title("RAG System Interface")
 
-# Dummy RAG logic (replace this with your actual RAG code)
-def rag_pipeline(query):
-    # Replace this with actual RAG logic
-    response = f"Retrieved and generated answer for: {query}"
-    return response
+query = st.text_input("Enter your query:")
 
-@app.route('/rag', methods=['POST'])
-def handle_query():
-    data = request.get_json()
-    query = data.get("query", "")
-    result = rag_pipeline(query)
-    return jsonify({"response": result})
-
-if __name__ == '__main__':
-    app.run(port=5000)
+if st.button("Submit"):
+    if query:
+        with st.spinner("Processing..."):
+            try:
+                response = requests.post(
+                    "http://127.0.0.1:5000/inference",
+                    json={"query": query}
+                )
+                result = response.json().get("results")
+                # print(result)
+                st.success(result)
+                # print(response.json())
+            except Exception as e:
+                st.error(f"Error: {e}")
+    else:
+        st.warning("Please enter a query.")

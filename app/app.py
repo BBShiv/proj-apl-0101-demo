@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token
 import random
 import math
 from create_vector_db import CreateAndLoadVectorDB
@@ -6,6 +7,36 @@ from run_inference import RunInference
 from constants import SOURCE_PDF_FILE_PATH, VECTORDB_FILE_PATH
 
 app = Flask(__name__)
+
+@app.route('/entrypoint', methods=['GET'])
+def entrypoint():
+    """
+    Entry point for the application.
+    Returns a welcome message.
+    """
+    return 
+
+@app.route('/login', methods=['POST'])
+def login():
+    """
+    Endpoint to authenticate user and return JWT token.
+    Expects JSON input: {"username": "your_username", "password": "your_password"}
+    """
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+    
+    if not username or not password:
+        return jsonify({"error": "Missing 'username' or 'password' in request body"}), 400
+
+    
+
+    # For simplicity, we are using a static check. In production, use a database.
+    if username == 'admin' and password == 'password':
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify({"error": "Invalid credentials"}), 401
 
 
 @app.route('/create_vector_db', methods=['GET'])
@@ -32,19 +63,20 @@ def run_inference_endpoint():
     Returns the response from LLM.
     """
     data = request.get_json()
-
+    
     if not data or 'query' not in data:
         return jsonify({"error": "Missing 'query' in request body"}), 400
 
     query_text = data['query']
 
     inference = RunInference()
-    response_output = inference.run_inference(query_text)
+    response_output,context = inference.run_inference(query_text)
     
     # Return the top_k results
     return jsonify({
         "query": query_text,
-        "results": response_output
+        "results": response_output,
+        "context": context,
     }), 200
 
 if __name__ == '__main__':
