@@ -1,11 +1,12 @@
 from create_vector_db import CreateAndLoadVectorDB
-from models import OpenAILLMModel
+from models import OpenAILLMModel,GeminiLLMModel
 from constants import VECTORDB_FILE_PATH
 
 class RunInference:
     def __init__(self):
         self.vectors = CreateAndLoadVectorDB()
-        self.llm = OpenAILLMModel()
+        # self.llm = OpenAILLMModel()
+        self.llm = GeminiLLMModel()
 
     def retrieve_context(self, query, vector_db_path):
         
@@ -22,16 +23,16 @@ class RunInference:
         Answer the question based only on the following context: {context}
         Question: {query}
         Only respond from the context, don't make things up, if you don't know just \
-            sat I don't know.
+            say I don't know.
         """
-        return template
+        return template,context
 
     def run_inference(self, query):
         retrieved_docs = self.retrieve_context(query,VECTORDB_FILE_PATH)
         context = self.format_docs(retrieved_docs)
-        prompt = self.create_prompt(context, query)
+        prompt,context = self.create_prompt(context, query)
         
         llm = self.llm.load_model()
         response = llm.invoke(prompt)
         generated_output = response.content
-        return generated_output
+        return generated_output,context

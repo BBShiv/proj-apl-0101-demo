@@ -1,13 +1,14 @@
 from langchain_community.document_loaders import PyPDFLoader,PyMuPDFLoader
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from models import OpenAIEmbeddingModel
+from models import OpenAIEmbeddingModel, FastEmbeddingModel
 from constants import SOURCE_PDF_FILE_PATH, VECTORDB_FILE_PATH
 
 class CreateAndLoadVectorDB:
 
     def __init__(self):
-        self.embeddings = OpenAIEmbeddingModel()
+        # self.embeddings = OpenAIEmbeddingModel()
+        self.embeddings = FastEmbeddingModel()
 
     def load_pdf_file(self, pdf_file_path):
         loader = PyMuPDFLoader(pdf_file_path)

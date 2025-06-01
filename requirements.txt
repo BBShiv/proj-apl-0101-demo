@@ -12,3 +12,5 @@ pypdf
 faiss-cpu
 chromadb
 Flask
+fastembed
+streamlit
