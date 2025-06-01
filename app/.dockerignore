@@ -1,0 +1,57 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+*.swp
+*.bak
+*~
+
+# Test files and directories (if you're not running tests inside the image)
+tests/
+*.pytest_cache/
+.coverage
+
+# Build artifacts and distribution
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Dependency management caches
+.pip/
+pip-cache/
+.npm/ # If you have frontend dependencies managed by npm
+node_modules/ # If you have frontend dependencies
+
+# Environment variables and sensitive data (should be handled via Docker secrets or environment variables, not committed)
+.env
+.flaskenv
+.secret_key
+*.key
+*.pem
+*.crt
+
+# Git and project management
+.git/
+.gitignore
+.gitmodules
+
+# Docker specific files (usually not needed inside the image)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Logs
+*.log
+logs/
