@@ -199,3 +199,5 @@ app/data/
 app/.env
 app/logs
 docker-setup-commands.txt
+app/users.db
+examples/
