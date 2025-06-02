@@ -55,3 +55,4 @@ docker-compose.yml
 # Logs
 *.log
 logs/
+users.db

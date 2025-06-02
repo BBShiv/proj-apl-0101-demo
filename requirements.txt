@@ -14,3 +14,7 @@ chromadb
 Flask
 flask_jwt_extended
 streamlit
+Flask-SQLAlchemy 
+PyJWT
+Werkzeug
+requests
