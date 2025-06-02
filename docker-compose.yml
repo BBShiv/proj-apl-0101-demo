@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  apl_rag_app:
+    image: apl-rag-demo
+    env_file:
+      - .env
+    ports:
+      - 5000:5000
