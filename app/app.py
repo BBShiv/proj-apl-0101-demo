@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, get_jwt_identity, jwt_required, create_access_token
 import random
 import math, os
+import secrets
+
 from create_vector_db import CreateAndLoadVectorDB
 from run_inference import RunInference
 from constants import SOURCE_PDF_FILE_PATH, VECTORDB_FILE_PATH
@@ -11,7 +13,7 @@ app = Flask(__name__)
 # Configure the Flask app and JWT manager
 
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False  # Set to False for no expiration, or set a timedelta for expiration    
-app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')  # Change this to a secure key
+app.config['JWT_SECRET_KEY'] = secrets.token_urlsafe(32)   #os.environ.get('JWT_SECRET_KEY')  # Change this to a secure key
 jwt = JWTManager(app)
 
 
