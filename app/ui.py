@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 logger.info("Initializing UI...")
 
 # --- Configuration ---
-BACKEND_AUTH_URL = "http://127.0.0.1:5000" # URL for your Flask authentication backend
-RAG_INFERENCE_URL = "http://127.0.0.1:5000/inference" # URL for your existing RAG inference API
+BACKEND_AUTH_URL = "http://127.0.0.1:5000" # Flask authentication backend URL
+RAG_INFERENCE_URL = "http://127.0.0.1:5000/inference" # RAG inference API
 
 # --- Session State for Authentication ---
 if 'logged_in' not in st.session_state:
