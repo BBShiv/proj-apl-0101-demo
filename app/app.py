@@ -18,7 +18,8 @@ import apl_logger
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_super_secret_key_change_this' # CHANGE THIS IN PRODUCTION!
+
+# app.config['SECRET_KEY'] = 'your_super_secret_key_change_this' # CHANGE THIS IN PRODUCTION!
 app.config['JWT_EXPIRATION_MINUTES'] = 60 # Token expires in 60 minutes
 DATABASE = 'users.db'
 
@@ -151,12 +152,15 @@ def run_inference_endpoint(current_user):
     inference = RunInference()
     response_output,context = inference.run_inference(query_text)
     
-    # Return the top_k results
+   
     return jsonify({
         "query": query_text,
         "results": response_output,
         "context": context,
     }), 200
+
+        
+
 
 if __name__ == '__main__':
     # Run the Flask application
